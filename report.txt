@@ -1,0 +1,27 @@
+================================================================================
+  AUTO-PARALLELIZER -- Analysis Report (Combined)
+================================================================================
+  [PARALLEL  ] Line 63 -> c[i] = a[i] + b[i];                        -> #pragma omp parallel for inserted
+  [PARALLEL  ] Line 76 -> for (int j = 0; j < N2D; j++) {            -> #pragma omp parallel for inserted
+  [SKIPPED ] Line 77 -> inner loop (depth 2) -> outermost-only parallelization policy
+  [REDUCTION ] Line 93 -> sum += a[i];                               -> #pragma omp parallel for reduction(+:sum) inserted
+  [UNSAFE    ] Line 106 -> a[i] = a[i - 1] + 1;                       -> loop-carried dependency: offset index access 'a[i - 1]'
+  [PARALLEL  ] Line 119 -> *(c + i) = *(a + i) + *(b + i);            -> #pragma omp parallel for inserted
+  [PARALLEL  ] Line 132 -> a[i] = sqrt(b[i]);                         -> #pragma omp parallel for inserted
+  [PARALLEL  ] Line 145 -> c[i] = a[i] * b[i];                        -> #pragma omp parallel for inserted
+  [UNSAFE    ] Line 160 -> result[i] = userFunc(a[i]);                -> unknown function call 'userFunc()' — possible side effects
+  [PARALLEL  ] Line 80 -> for (int j = 1; j < N - 1; j++) {          -> #pragma omp parallel for inserted
+  [SKIPPED ] Line 81 -> inner loop (depth 2) -> outermost-only parallelization policy
+  [PARALLEL  ] Line 70 -> for (int j = 0; j < M; j++) {              -> #pragma omp parallel for inserted
+  [SKIPPED ] Line 71 -> inner loop (depth 2) -> outermost-only parallelization policy
+  [SKIPPED ] Line 72 -> inner loop (depth 3) -> outermost-only parallelization policy
+--------------------------------------------------------------------------------
+  SUMMARY
+--------------------------------------------------------------------------------
+  Total loops analyzed     : 14
+  Parallelized (parallel)  : 7
+  Parallelized (reduction) : 1
+  Skipped (inner loop)     : 4
+  Rejected (unsafe)        : 2
+  Parallelization rate     : 57%
+--------------------------------------------------------------------------------
